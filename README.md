@@ -29,11 +29,11 @@ with the username and password you provided and you can respond to the tickets s
 ### Change the .env.example file to .env file
 
 # Hosting
-### For hosting, the platform I used was pythonanywhere.com where you can clone your git repository, set the wsgi configuration file in the
-### 'Web' section of the user dashboard. The only problem is that they do not have the latest version of python built-in. Create your virtual
-### using the bash console's mkvirtualenv my-virtual-env method. It automatically activates your environment and you only have to install
-### dependencies like django and python-dotenv using pip after which the standard build commands will usually work. Sometimes the tables
-### might not be created as expected but you can run 
+For hosting, the platform I used was pythonanywhere.com where you can clone your git repository, set the wsgi configuration file in the
+'Web' section of the user dashboard. The only problem is that they do not have the latest version of python built-in. Create your virtual
+using the bash console's mkvirtualenv my-virtual-env method. It automatically activates your environment and you only have to install
+dependencies like django and python-dotenv using pip after which the standard build commands will usually work. Sometimes the tables
+might not be created as expected but you can run 
 ## python manage.py makemigrations ticketing_app 
-### followed by running the normal migrate command to explicitly specify where the required models.py file is located. Then the standard .env
-## file needs to be created and you're good to go.
+followed by running the normal migrate command to explicitly specify where the required models.py file is located. Then the standard .env
+file needs to be created and you're good to go.
