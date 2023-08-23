@@ -1,0 +1,57 @@
+{% extends 'ticketing_app/base.html' %}
+
+{% block content %}
+  <head>
+    <style>
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #333; /* Add your desired background color */
+        padding: 10px; /* Add spacing as needed */
+        color: white; /* Text color */
+      }
+    
+      .logout-button {
+        text-decoration: none;
+        color: white; /* Text color for the logout button */
+        font-weight: bold;
+        padding: 5px 10px; /* Adjust padding for button size */
+        border: 1px solid white; /* Optional: Add a border to the button */
+        border-radius: 5px; /* Optional: Add rounded corners to the button */
+      }
+    </style>
+  </head>
+  <div class="header">
+    <h2>Admin View - All Submitted Data</h2>
+    <a href="{% url 'login' %}" class="logout-button">Logout</a>
+  </div>  
+  <ul>
+    {% for data in all_data %}
+    {% if data.adminview %}
+      <li>
+        <div class="user-data">
+          {{ data.subject }} - {{ data.timestamp }}
+          <ul>
+            <li>Description: {{ data.description }}</li>
+            <li>Phone Number: {{ data.phone_number }}</li>
+            <li>Ticket Number: {{ data.ticket_number }}</li>
+            <li>Submitted by: {{ data.user.username }}</li>
+          </ul>
+        </div>
+        
+        <div class="response-form">
+          <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="data_id" value="{{ data.id }}">
+            <textarea name="response" placeholder="Enter your response"></textarea>
+            <button type="submit">Submit Response</button>
+          </form>
+        </div>
+      </li>
+      {% endif %}
+    {% empty %}
+      <li>No submitted data yet.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

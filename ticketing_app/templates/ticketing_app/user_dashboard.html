@@ -1,0 +1,78 @@
+{% extends 'ticketing_app/base.html' %}
+
+{% block content %}
+  <head>
+    <style>
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #333;
+        padding: 10px;
+        color: white;
+      }
+    
+      .logout-button {
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        padding: 5px 10px;
+        border: 1px solid white; 
+        border-radius: 5px;
+      }
+    </style>    
+  </head>
+  <div class="header">
+    <h2>Welcome, {{ user.username }}!</h2>
+    <a href="{% url 'login' %}" class="logout-button">Logout</a>
+  </div>  
+  <h3>Submit a Ticket</h3>
+  <form method="post">
+    {% csrf_token %}
+    <p></p>
+    <label for="subject">Subject:</label>
+    <input type="text" id="subject" name="subject" required><br><br>
+    
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" required></textarea><br><br>
+    
+    <label for="phone_number">Phone Number:</label>
+    <input type="tel" id="phone_number" name="phone_number" pattern="[0-9]{10}" placeholder="Enter a 10-digit phone number" required><br><br>
+    
+    <button type="submit">Submit</button>
+  </form>
+
+  <h3>Submitted Tickets</h3>
+  <ul>
+    {% for data in submitted_tickets %}
+    {% if not data.resolved %}
+      <li>Ticket Number: {{ data.ticket_number }}</li>
+      <li>{{ data.subject }} - {{ data.timestamp }}</li>
+      <ul>
+        <li>Description: {{ data.description }}</li>
+        <li>Phone Number: {{ data.phone_number }}</li>
+      </ul>
+      {% endif %}
+    {% empty %}
+      <li>No submitted tickets yet.</li>
+    {% endfor %}
+  </ul>
+
+  <h3>Resolved Tickets</h3>
+  <ul>
+    {% for data in resolved_tickets %}
+    {% if data.resolved %}
+      <li>Ticket Number: {{ data.user_data.ticket_number }}</li>
+      <li>{{ data.user_data.subject }} - {{ data.user_data.timestamp }}</li>
+      <ul>
+        <li>Description: {{ data.user_data.description }}</li>
+        <li>Phone Number: {{ data.user_data.phone_number }}</li>
+        <li>Response: {{ data.response }}</li>
+        <li>Response Time: {{ data.response_time }}</li>
+      </ul>
+      {% endif %}
+    {% empty %}
+      <li>No responses recieved yet.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
