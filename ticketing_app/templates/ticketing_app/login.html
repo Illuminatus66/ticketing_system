@@ -1,6 +1,65 @@
 {% extends 'ticketing_app/base.html' %}
 
 {% block content %}
+  <style>
+    /* Form styles */
+    @import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+    h2 {
+      background-color: #333;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      font-family: 'Oswald', sans-serif; /* Replace with your chosen font */
+    }
+
+    form {
+      background-color: #f0f0f0;
+      padding: 20px;
+      border-radius: 10px;
+      font-family: 'Oswald', sans-serif; /* Replace with your chosen font */
+    }
+
+    form label {
+      font-weight: bold;
+    }
+
+    form input[type="text"],
+    form input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button[type="submit"] {
+      background-color: #007bff;
+      color: white;
+      font-weight: bold;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    /* Register link styles */
+    p {
+      font-family: 'Oswald', sans-serif; /* Replace with your chosen font */
+    }
+
+    p a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    p a:hover {
+      text-decoration: underline;
+    }
+  </style>
+
   <h2>Login</h2>
   <form method="post">
     {% csrf_token %}

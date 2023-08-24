@@ -1,57 +1,104 @@
 {% extends 'ticketing_app/base.html' %}
 
 {% block content %}
-  <head>
-    <style>
-      .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: #333; /* Add your desired background color */
-        padding: 10px; /* Add spacing as needed */
-        color: white; /* Text color */
-      }
-    
-      .logout-button {
-        text-decoration: none;
-        color: white; /* Text color for the logout button */
-        font-weight: bold;
-        padding: 5px 10px; /* Adjust padding for button size */
-        border: 1px solid white; /* Optional: Add a border to the button */
-        border-radius: 5px; /* Optional: Add rounded corners to the button */
-      }
-    </style>
-  </head>
+  <style>
+    /* Header styles */
+    @import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #333;
+      padding: 10px;
+      color: white;
+    }
+
+    .logout-button {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      padding: 5px 10px;
+      border: 1px solid white;
+      border-radius: 5px;
+    }
+
+    /* List item styles */
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      padding: 20px;
+      font-family: 'Oswald', sans-serif; /* Replace with your chosen font */
+    }
+
+    /* Form and response styles */
+    .response-form {
+      margin-top: 10px;
+    }
+
+    form {
+      background-color: #f0f0f0;
+      padding: 10px;
+      border-radius: 10px;
+      font-family: 'Oswald', sans-serif; /* Replace with your chosen font */
+    }
+
+    form textarea {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    form button[type="submit"] {
+      background-color: #007bff;
+      color: white;
+      font-weight: bold;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+  </style>
+
   <div class="header">
-    <h2>Admin View - All Submitted Data</h2>
+    <h2>Admin View - All Submitted Tickets</h2>
     <a href="{% url 'login' %}" class="logout-button">Logout</a>
   </div>  
   <ul>
     {% for data in all_data %}
-    {% if data.adminview %}
-      <li>
-        <div class="user-data">
-          {{ data.subject }} - {{ data.timestamp }}
-          <ul>
-            <li>Description: {{ data.description }}</li>
-            <li>Phone Number: {{ data.phone_number }}</li>
-            <li>Ticket Number: {{ data.ticket_number }}</li>
-            <li>Submitted by: {{ data.user.username }}</li>
-          </ul>
-        </div>
-        
-        <div class="response-form">
-          <form method="post">
-            {% csrf_token %}
-            <input type="hidden" name="data_id" value="{{ data.id }}">
-            <textarea name="response" placeholder="Enter your response"></textarea>
-            <button type="submit">Submit Response</button>
-          </form>
-        </div>
-      </li>
+      {% if data.adminview %}
+        <li>
+          <div class="user-data">
+            {{ data.subject }} - {{ data.timestamp }}
+            <ul>
+              <li>Description: {{ data.description }}</li>
+              <li>Phone Number: {{ data.phone_number }}</li>
+              <li>Ticket Number: {{ data.ticket_number }}</li>
+              <li>Submitted by: {{ data.user.username }}</li>
+            </ul>
+          </div>
+          
+          <div class="response-form">
+            <form method="post">
+              {% csrf_token %}
+              <input type="hidden" name="data_id" value="{{ data.id }}">
+              <textarea name="response" placeholder="Enter your response"></textarea>
+              <button type="submit">Submit Response</button>
+            </form>
+          </div>
+        </li>
       {% endif %}
     {% empty %}
-      <li>No submitted data yet.</li>
+      <li>No submitted tickets yet.</li>
     {% endfor %}
   </ul>
 {% endblock %}
