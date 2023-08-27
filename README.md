@@ -1,6 +1,6 @@
 # Customer Support Ticketing System
 ### A web application built using Django with a simple UI demonstrating the use of views, templates and models for data storage and retrieval.
-### Link- https://illuminatus66.pythonanywhere.com
+## Link- https://illuminatus66.pythonanywhere.com
 ## Description-
 This lightweight app uses only django and python-dotenv as it's dependencies. It has views for user authentication and registration
 that make use of Form fields provided by Django. It has built in client-side checks for different fields. They can be customized
